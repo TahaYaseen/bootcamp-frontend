@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: voice-to-trace-service
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/
+      database: voice_to_trace
+server:
+  port: 8081
+
+logging:
+  level:
+    root: INFO

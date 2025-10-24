@@ -1,0 +1,133 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::               (v2.7.18)
+
+2025-10-22 03:10:18.669  INFO 87488 --- [           main] com.voicetotrace.Application             : Starting Application v1.0.0-SNAPSHOT using Java 11.0.19 on tahay with PID 87488 (/home/tahay/Tech/Project/Dew/iTrade/bootcamp/backend/voice-to-trace-service/target/voice-to-trace-service-1.0.0-SNAPSHOT.jar started by tahay in /home/tahay/Tech/Project/Dew/iTrade/bootcamp/backend/voice-to-trace-service)
+2025-10-22 03:10:18.693  INFO 87488 --- [           main] com.voicetotrace.Application             : No active profile set, falling back to 1 default profile: "default"
+2025-10-22 03:10:22.699  INFO 87488 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+2025-10-22 03:10:23.074  INFO 87488 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 341 ms. Found 1 MongoDB repository interfaces.
+2025-10-22 03:10:27.734  INFO 87488 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+2025-10-22 03:10:27.841  INFO 87488 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-10-22 03:10:27.843  INFO 87488 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.83]
+2025-10-22 03:10:28.600  INFO 87488 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-10-22 03:10:28.601  INFO 87488 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 9360 ms
+2025-10-22 03:10:30.721  INFO 87488 --- [           main] org.mongodb.driver.client                : MongoClient with metadata {"driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "4.6.1"}, "os": {"type": "Linux", "name": "Linux", "architecture": "amd64", "version": "5.4.0-91-generic"}, "platform": "Java/Ubuntu/11.0.19+7-post-Ubuntu-0ubuntu120.04.1"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=null, streamFactoryFactory=null, commandListeners=[], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.Jep395RecordCodecProvider@302a07d]}, clusterSettings={hosts=[localhost:27017], srvServiceName=mongodb, mode=SINGLE, requiredClusterType=UNKNOWN, requiredReplicaSetName='null', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='30000 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, sendBufferSize=0}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, sendBufferSize=0}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=false, invalidHostNameAllowed=false, context=null}, applicationName='null', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, contextProvider=null}
+2025-10-22 03:10:30.880  INFO 87488 --- [localhost:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:2, serverValue:25}] to localhost:27017
+2025-10-22 03:10:30.881  INFO 87488 --- [localhost:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:1, serverValue:26}] to localhost:27017
+2025-10-22 03:10:30.884  INFO 87488 --- [localhost:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=6, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=201508840}
+2025-10-22 03:10:35.188  INFO 87488 --- [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3676ac27, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@62f87c44, org.springframework.security.web.context.SecurityContextPersistenceFilter@411341bd, org.springframework.security.web.header.HeaderWriterFilter@76318a7d, org.springframework.web.filter.CorsFilter@48f5bde6, com.voicetotrace.security.JwtAuthFilter@1c98290c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5400db36, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@76b74e9c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@525d79f0, org.springframework.security.web.session.SessionManagementFilter@3277e499, org.springframework.security.web.access.ExceptionTranslationFilter@2f66e802, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@287f94b1]
+2025-10-22 03:10:36.572  INFO 87488 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''
+2025-10-22 03:10:36.611  INFO 87488 --- [           main] com.voicetotrace.Application             : Started Application in 21.682 seconds (JVM running for 24.343)
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::               (v2.7.18)
+
+2025-10-22 03:10:44.012  INFO 87828 --- [           main] com.voicetotrace.Application             : Starting Application v1.0.0-SNAPSHOT using Java 11.0.19 on tahay with PID 87828 (/home/tahay/Tech/Project/Dew/iTrade/bootcamp/backend/voice-to-trace-service/target/voice-to-trace-service-1.0.0-SNAPSHOT.jar started by tahay in /home/tahay/Tech/Project/Dew/iTrade/bootcamp/backend/voice-to-trace-service)
+2025-10-22 03:10:44.026  INFO 87828 --- [           main] com.voicetotrace.Application             : No active profile set, falling back to 1 default profile: "default"
+2025-10-22 03:10:47.691  INFO 87828 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+2025-10-22 03:10:48.085  INFO 87828 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 344 ms. Found 1 MongoDB repository interfaces.
+2025-10-22 03:10:53.663  INFO 87828 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+2025-10-22 03:10:53.743  INFO 87828 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-10-22 03:10:53.754  INFO 87828 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.83]
+2025-10-22 03:10:54.217  INFO 87828 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-10-22 03:10:54.218  INFO 87828 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 9809 ms
+2025-10-22 03:10:55.844  INFO 87828 --- [           main] org.mongodb.driver.client                : MongoClient with metadata {"driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "4.6.1"}, "os": {"type": "Linux", "name": "Linux", "architecture": "amd64", "version": "5.4.0-91-generic"}, "platform": "Java/Ubuntu/11.0.19+7-post-Ubuntu-0ubuntu120.04.1"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=null, streamFactoryFactory=null, commandListeners=[], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.Jep395RecordCodecProvider@366c4480]}, clusterSettings={hosts=[localhost:27017], srvServiceName=mongodb, mode=SINGLE, requiredClusterType=UNKNOWN, requiredReplicaSetName='null', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='30000 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, sendBufferSize=0}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, sendBufferSize=0}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=false, invalidHostNameAllowed=false, context=null}, applicationName='null', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, contextProvider=null}
+2025-10-22 03:10:55.912  INFO 87828 --- [localhost:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:1, serverValue:27}] to localhost:27017
+2025-10-22 03:10:55.912  INFO 87828 --- [localhost:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:2, serverValue:28}] to localhost:27017
+2025-10-22 03:10:55.918  INFO 87828 --- [localhost:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=6, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=132922989}
+2025-10-22 03:10:58.319  INFO 87828 --- [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@287f94b1, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@30b34287, org.springframework.security.web.context.SecurityContextPersistenceFilter@3277e499, org.springframework.security.web.header.HeaderWriterFilter@1b58ff9e, org.springframework.web.filter.CorsFilter@5489c777, com.voicetotrace.security.JwtAuthFilter@63c5efee, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@22c01ab0, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@411341bd, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3676ac27, org.springframework.security.web.session.SessionManagementFilter@56b78e55, org.springframework.security.web.access.ExceptionTranslationFilter@63f34b70, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5769e7ae]
+2025-10-22 03:11:00.937  WARN 87828 --- [           main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'; nested exception is org.springframework.boot.web.server.PortInUseException: Port 8081 is already in use
+2025-10-22 03:11:01.053  INFO 87828 --- [           main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2025-10-22 03:11:01.131  WARN 87828 --- [           main] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [BufferPoolPruner-1-thread-1] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@11.0.19/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@11.0.19/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:234)
+ java.base@11.0.19/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2123)
+ java.base@11.0.19/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@11.0.19/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@11.0.19/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1054)
+ java.base@11.0.19/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1114)
+ java.base@11.0.19/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+ java.base@11.0.19/java.lang.Thread.run(Thread.java:829)
+2025-10-22 03:11:01.216  INFO 87828 --- [           main] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2025-10-22 03:11:01.557 ERROR 87828 --- [           main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8081 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8081 or configure this application to listen on another port.
+
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::               (v2.7.18)
+
+2025-10-22 03:11:06.725  INFO 88088 --- [           main] com.voicetotrace.Application             : Starting Application v1.0.0-SNAPSHOT using Java 11.0.19 on tahay with PID 88088 (/home/tahay/Tech/Project/Dew/iTrade/bootcamp/backend/voice-to-trace-service/target/voice-to-trace-service-1.0.0-SNAPSHOT.jar started by tahay in /home/tahay/Tech/Project/Dew/iTrade/bootcamp/backend/voice-to-trace-service)
+2025-10-22 03:11:06.746  INFO 88088 --- [           main] com.voicetotrace.Application             : No active profile set, falling back to 1 default profile: "default"
+2025-10-22 03:11:11.122  INFO 88088 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+2025-10-22 03:11:11.599  INFO 88088 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 423 ms. Found 1 MongoDB repository interfaces.
+2025-10-22 03:11:17.667  INFO 88088 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+2025-10-22 03:11:17.725  INFO 88088 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-10-22 03:11:17.727  INFO 88088 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.83]
+2025-10-22 03:11:18.118  INFO 88088 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-10-22 03:11:18.120  INFO 88088 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 10812 ms
+2025-10-22 03:11:19.043  INFO 88088 --- [           main] org.mongodb.driver.client                : MongoClient with metadata {"driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "4.6.1"}, "os": {"type": "Linux", "name": "Linux", "architecture": "amd64", "version": "5.4.0-91-generic"}, "platform": "Java/Ubuntu/11.0.19+7-post-Ubuntu-0ubuntu120.04.1"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=null, streamFactoryFactory=null, commandListeners=[], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.Jep395RecordCodecProvider@5cdd09b1]}, clusterSettings={hosts=[localhost:27017], srvServiceName=mongodb, mode=SINGLE, requiredClusterType=UNKNOWN, requiredReplicaSetName='null', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='30000 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, sendBufferSize=0}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, sendBufferSize=0}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=false, invalidHostNameAllowed=false, context=null}, applicationName='null', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, contextProvider=null}
+2025-10-22 03:11:19.115  INFO 88088 --- [localhost:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:2, serverValue:30}] to localhost:27017
+2025-10-22 03:11:19.119  INFO 88088 --- [localhost:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=6, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=89865245}
+2025-10-22 03:11:19.126  INFO 88088 --- [localhost:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:1, serverValue:29}] to localhost:27017
+2025-10-22 03:11:20.818  INFO 88088 --- [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@7072bc39, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@158d255c, org.springframework.security.web.context.SecurityContextPersistenceFilter@8ab78bc, org.springframework.security.web.header.HeaderWriterFilter@411341bd, org.springframework.web.filter.CorsFilter@2ca65ce4, com.voicetotrace.security.JwtAuthFilter@51df223b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@16afbd92, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2c5d601e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@327120c8, org.springframework.security.web.session.SessionManagementFilter@5400db36, org.springframework.security.web.access.ExceptionTranslationFilter@585811a4, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@48f5bde6]
+2025-10-22 03:11:22.448  WARN 88088 --- [           main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'; nested exception is org.springframework.boot.web.server.PortInUseException: Port 8081 is already in use
+2025-10-22 03:11:22.495  INFO 88088 --- [           main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2025-10-22 03:11:22.546  WARN 88088 --- [           main] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [BufferPoolPruner-1-thread-1] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@11.0.19/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@11.0.19/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:234)
+ java.base@11.0.19/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:2123)
+ java.base@11.0.19/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@11.0.19/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@11.0.19/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1054)
+ java.base@11.0.19/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1114)
+ java.base@11.0.19/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+ java.base@11.0.19/java.lang.Thread.run(Thread.java:829)
+2025-10-22 03:11:22.639  INFO 88088 --- [           main] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2025-10-22 03:11:22.744 ERROR 88088 --- [           main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8081 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8081 or configure this application to listen on another port.
+
+2025-10-22 03:13:46.411  INFO 87488 --- [nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-10-22 03:13:46.411  INFO 87488 --- [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-10-22 03:13:46.414  INFO 87488 --- [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2025-10-22 03:13:47.426  INFO 87488 --- [nio-8081-exec-2] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:3, serverValue:31}] to localhost:27017

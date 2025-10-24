@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "angular.json",
+      "use": "@vercel/angular"
+    }
+  ],
+  "framework": "angular",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist/frontend",
+  "env": {
+    "API_BASE_URL": "https://<render-service-name>.onrender.com/api/v1/"
+  },
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
+}
