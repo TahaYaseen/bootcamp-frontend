@@ -1,0 +1,32 @@
+<div class="record-container">
+  <h2>Voice Recorder</h2>
+
+  <div class="controls">
+    <button (click)="startRecording()" [disabled]="isRecording">🎙️ Start</button>
+    <button (click)="stopRecording()" [disabled]="!isRecording">⏹️ Stop</button>
+    <button (click)="playAudio()" [disabled]="!audioUrl">▶️ Play</button>
+    <button (click)="uploadAudio()" [disabled]="!audioUrl">☁️ Upload</button>
+  </div>
+
+  <div class="status">
+    <p *ngIf="isRecording"><strong>Recording in progress...</strong></p>
+    <p *ngIf="uploadStatus">{{ uploadStatus }}</p>
+  </div>
+
+  <div *ngIf="audioUrl">
+    <audio [src]="audioUrl" controls></audio>
+  </div>
+
+  <div class="transcription" *ngIf="uploadStatus && uploadStatus.includes('Record ID')">
+    <button (click)="transcribeRecord(parseInt(uploadStatus.split(':')[1]))">🧠 Transcribe</button>
+  </div>
+
+  <div *ngIf="transcriptionText">
+    <h3>Transcript (Editable)</h3>
+    <textarea rows="5" cols="40" [value]="transcriptionText" (input)="editTranscript($event)"></textarea>
+  </div>
+
+  <div class="footer">
+    <button class="logout-btn" (click)="logout()">Logout</button>
+  </div>
+</div>
