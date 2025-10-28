@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { environment } from '../../../environments/environment';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
@@ -22,24 +23,160 @@ export class RecordComponent {
   async startRecording() {
     this.audioChunks = [];
     try {
+      console.log('Requesting microphone access...');
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      this.mediaRecorder = new MediaRecorder(stream);
-      this.mediaRecorder.ondataavailable = (e) => this.audioChunks.push(e.data);
-      this.mediaRecorder.onstop = () => {
-        const blob = new Blob(this.audioChunks, { type: 'audio/wav' });
-        this.audioUrl = URL.createObjectURL(blob);
+      if (!stream) {
+        console.error('No audio stream available.');
+        alert('Unable to access microphone. Please check browser permissions.');
+        return;
+      }
+      console.log('Microphone access granted.');
+
+
+      // Verify Web Audio API support
+      const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+      if (!AudioContextClass) {
+        alert('Your browser does not support Web Audio API.');
+        return;
+      }
+
+      // Initialize AudioContext and Recorder
+      const audioContext = new AudioContextClass({ sampleRate: 16000 });
+      const source = audioContext.createMediaStreamSource(stream);
+
+      if (!window.MediaRecorder) {
+        alert('Your browser does not support audio recording.');
+        return;
+      }
+
+      const recorder = new MediaRecorder(stream, { mimeType: 'audio/webm;codecs=opus' });
+      console.log('MediaRecorder initialized with state:', recorder.state);
+
+      // Define audioChunks only once outside scope
+      this.audioChunks = [];
+      if (!recorder) {
+        console.error('Failed to create MediaRecorder');
+        alert('Your browser does not support MediaRecorder.');
+        return;
+      }
+      // Use component's shared audioChunks for accessibility during stopRecording
+      this.audioChunks = [];
+
+      recorder.ondataavailable = (event) => {
+        if (event.data.size > 0) {
+          this.audioChunks.push(event.data);
+          console.log('Audio chunk captured, total chunks:', this.audioChunks.length);
+        }
       };
-      this.mediaRecorder.start();
+
+      recorder.onerror = (event) => {
+        console.error('MediaRecorder error:', event);
+        alert('Recording error occurred. Check browser permissions.');
+      };
+
+      recorder.onstop = async () => {
+        console.log('MediaRecorder stopped, finalizing audio...');
+        if (!this.audioChunks || this.audioChunks.length === 0) {
+          console.warn('No audio chunks found after stop.');
+          this.isRecording = false;
+          return;
+        }
+
+        try {
+          const audioBlob = new Blob(this.audioChunks, { type: 'audio/webm' });
+          const arrayBuffer = await audioBlob.arrayBuffer();
+          const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+
+          const offlineContext = new OfflineAudioContext(1, audioBuffer.length * (16000 / audioBuffer.sampleRate), 16000);
+          const bufferSource = offlineContext.createBufferSource();
+          bufferSource.buffer = audioBuffer;
+          bufferSource.connect(offlineContext.destination);
+          bufferSource.start(0);
+          const renderedBuffer = await offlineContext.startRendering();
+
+          const wavBlob = this.encodeWAV(renderedBuffer);
+          this.audioUrl = URL.createObjectURL(wavBlob);
+          this.audioChunks = [wavBlob];
+          this.isRecording = false;
+
+          console.log('Recording finalized and ready for playback/upload.');
+        } catch (error) {
+          console.error('Error finalizing recorded audio:', error);
+          alert('Could not finalize audio recording.');
+        }
+      };
+
+      recorder.start();
+      this.mediaRecorder = recorder;
       this.isRecording = true;
+      console.log('Recording started from browser mic at 16kHz');
     } catch (err) {
-      console.error('Microphone access denied:', err);
+      console.error('Microphone access denied or error:', err);
     }
   }
 
+
+  private encodeWAV(buffer: AudioBuffer): Blob {
+    const channelData = buffer.getChannelData(0);
+    const bufferLength = channelData.length * 2 + 44;
+    const arrayBuffer = new ArrayBuffer(bufferLength);
+    const view = new DataView(arrayBuffer);
+
+    // WAV header
+    const writeString = (offset: number, str: string) =>
+      [...str].forEach((c, i) => view.setUint8(offset + i, c.charCodeAt(0)));
+
+    writeString(0, 'RIFF');
+    view.setUint32(4, 36 + channelData.length * 2, true);
+    writeString(8, 'WAVE');
+    writeString(12, 'fmt ');
+    view.setUint32(16, 16, true);
+    view.setUint16(20, 1, true);
+    view.setUint16(22, 1, true);
+    view.setUint32(24, 16000, true);
+    view.setUint32(28, 16000 * 2, true);
+    view.setUint16(32, 2, true);
+    view.setUint16(34, 16, true);
+    writeString(36, 'data');
+    view.setUint32(40, channelData.length * 2, true);
+
+    let offset = 44;
+    for (let i = 0; i < channelData.length; i++, offset += 2) {
+      const s = Math.max(-1, Math.min(1, channelData[i]));
+      view.setInt16(offset, s < 0 ? s * 0x8000 : s * 0x7fff, true);
+    }
+
+    return new Blob([arrayBuffer], { type: 'audio/wav' });
+  }
+
   stopRecording() {
-    if (this.mediaRecorder && this.isRecording) {
-      this.mediaRecorder.stop();
-      this.isRecording = false;
+    if (!this.mediaRecorder) {
+      console.warn('No active MediaRecorder instance to stop.');
+      return;
+    }
+
+    if (this.isRecording) {
+      console.log('Stopping MediaRecorder...');
+      try {
+        this.mediaRecorder.onstop = async () => {
+          console.log('MediaRecorder stopped via stop button. Finalizing...');
+          const audioBlob = new Blob(this.audioChunks, { type: 'audio/webm' });
+          if (audioBlob.size > 0) {
+            this.audioUrl = URL.createObjectURL(audioBlob);
+            this.audioChunks = [audioBlob];
+            this.isRecording = false;
+            console.log('Audio finalized and ready for playback/upload.');
+          } else {
+            console.warn('No audio data available on stop.');
+          }
+        };
+        this.mediaRecorder.stop();
+      } catch (err) {
+        console.error('Error stopping MediaRecorder:', err);
+        alert('Failed to stop recording. Please try again.');
+      }
+    } else {
+      console.warn('Recording is not active.');
     }
   }
 
@@ -51,15 +188,26 @@ export class RecordComponent {
   }
 
   async uploadAudio() {
-    if (!this.audioUrl) return;
+    if (!this.audioChunks || this.audioChunks.length === 0) {
+      alert('No recorded audio found to upload.');
+      return;
+    }
+
     try {
-      const blob = new Blob(this.audioChunks, { type: 'audio/wav' });
+      const blob = new Blob(this.audioChunks, { type: 'audio/webm' });
+      console.log('Preparing to upload audio file. Size (bytes):', blob.size);
+      if (blob.size === 0) {
+        alert('Recorded audio file is empty. Please record again.');
+        return;
+      }
+
       const formData = new FormData();
-      formData.append('file', blob, 'recording.wav');
+      formData.append('file', blob, 'recording.webm');
       formData.append('userId', '1');
 
       const token = sessionStorage.getItem('jwt');
-      const response = await fetch('http://localhost:8081/api/v1/voice/record', {
+      const baseUrl = environment.apiBaseUrl || 'http://localhost:8081/api/v1/';
+      const response = await fetch(`${baseUrl}voice/record`, {
         method: 'POST',
         headers: token ? { Authorization: `Bearer ${token}` } : {},
         body: formData,
@@ -68,20 +216,28 @@ export class RecordComponent {
       if (response.ok) {
         const data = await response.json();
         this.uploadStatus = `Uploaded successfully. Record ID: ${data.recordId}`;
+        this.transcriptId = data.recordId?.toString().trim() || null;
+        console.log('File successfully uploaded. Record ID:', this.transcriptId);
       } else {
-        this.uploadStatus = 'Upload failed.';
+        const text = await response.text();
+        console.error('Upload failed. Server responded:', text);
+        this.uploadStatus = `Upload failed. ${text}`;
       }
     } catch (error) {
-      console.error('Upload error', error);
-      this.uploadStatus = 'Upload error occurred.';
+      console.error('Upload error:', error);
+      this.uploadStatus = 'Unexpected upload error occurred.';
     }
   }
 
-  async transcribeRecord(recordId: number) {
+  async transcribeRecord(recordId?: any) {
     try {
       const token = sessionStorage.getItem('jwt');
+      // Always use saved full recordId from upload
+      const actualId = this.transcriptId ? this.transcriptId.toString().trim() : recordId?.toString().trim();
+      console.log('Using recordId for transcription:', actualId);
       const start = performance.now();
-      const response = await fetch(`http://localhost:8081/api/v1/voice/transcribe?recordId=${recordId}`, {
+
+      const response = await fetch(`http://localhost:8081/api/v1/voice/transcribe?recordId=${encodeURIComponent(actualId)}`, {
         method: 'POST',
         headers: token ? { Authorization: `Bearer ${token}` } : {},
       });

@@ -22,8 +22,9 @@ export class AuthService {
     );
   }
 
-  register(username: string, password: string): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.baseUrl}auth/register`, { username, password }).pipe(
+  register(email: string, password: string): Observable<AuthResponse> {
+    const payload = { username: email, password };
+    return this.http.post<AuthResponse>(`${this.baseUrl}/api/v1/auth/register`, payload).pipe(
       catchError((error) => { throw error; })
     );
   }

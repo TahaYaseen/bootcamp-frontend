@@ -1,1 +1,85 @@
+/* ======================================
+   Modern Minimal Theme – Tweakcn Inspired
+   Primary: #3b82f6 | Secondary: #f3f4f6
+   Foregrounds: #ffffff and #4b5563
+   ====================================== */
+
+:root {
+  --color-primary: #3b82f6;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #f3f4f6;
+  --color-secondary-foreground: #4b5563;
+  --color-accent: #1e40af;
+  --color-background: #ffffff;
+  --color-surface: #f9fafb;
+  --color-border: #e5e7eb;
+  --font-family-base: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-secondary-foreground);
+  font-family: var(--font-family-base);
+  margin: 0;
+  padding: 0;
+}
+
+/* Card Styling */
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 1.25rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* Buttons */
+button,
+.btn {
+  background-color: var(--color-primary);
+  color: var(--color-primary-foreground);
+  border: none;
+  border-radius: 6px;
+  padding: 0.6rem 1.25rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+button:hover,
+.btn:hover {
+  background-color: #2563eb; /* Darker primary shade */
+}
+
+/* Inputs */
+input, textarea, select {
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: 0.5rem 0.7rem;
+  background-color: var(--color-secondary);
+  color: var(--color-secondary-foreground);
+  font-family: var(--font-family-base);
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-secondary-foreground);
+  font-weight: 600;
+}
+
+/* Links */
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Utility Spacing */
+.mt-1 { margin-top: 0.25rem; }
+.mt-2 { margin-top: 0.5rem; }
+.mt-3 { margin-top: 0.75rem; }
+.mt-4 { margin-top: 1rem; }
 /* You can add global styles to this file, and also import other style files */

@@ -1,33 +1,18 @@
-<div class="auth-page">
-  <div class="auth-card">
-    <h1 class="brand-title">VoiceToTrace</h1>
-    <h2 class="page-title">Login</h2>
+<div class="login-container">
+  <div class="login-card">
+    <div class="tab-header">
+      <button class="active">Login</button>
+      <a routerLink="/register">Signup</a>
+    </div>
 
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="auth-form">
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input id="username" type="text" formControlName="email" placeholder="Enter your username" />
-        <div class="error" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
-          Username is required.
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input id="password" type="password" formControlName="password" placeholder="Enter your password" />
-        <div class="error" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
-          Password is required.
-        </div>
-      </div>
-
-      <button class="btn-primary" type="submit" [disabled]="loginForm.invalid">Sign In</button>
-
-      <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <input type="email" placeholder="Email Address" formControlName="email" required />
+      <input type="password" placeholder="Password" formControlName="password" required />
+      <a href="#" class="forgot-password">Forgot password?</a>
+      <button type="submit" [disabled]="loginForm.invalid">Login</button>
+      <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
     </form>
 
-    <div class="auth-footer">
-      <p>Don't have an account?</p>
-      <a routerLink="/register" class="link-register">Create Account</a>
-    </div>
+    <p class="signup-text">Not a member? <a routerLink="/register">Signup now</a></p>
   </div>
 </div>

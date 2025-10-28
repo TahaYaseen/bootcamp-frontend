@@ -1,32 +1,35 @@
-<div class="record-container">
-  <h2>Voice Recorder</h2>
+<div class="record-page">
+  <div class="record-card">
+    <h2>🎙️ Voice Recorder</h2>
+    <p class="subtitle">Capture, play, and transcribe your voice seamlessly</p>
 
-  <div class="controls">
-    <button (click)="startRecording()" [disabled]="isRecording">🎙️ Start</button>
-    <button (click)="stopRecording()" [disabled]="!isRecording">⏹️ Stop</button>
-    <button (click)="playAudio()" [disabled]="!audioUrl">▶️ Play</button>
-    <button (click)="uploadAudio()" [disabled]="!audioUrl">☁️ Upload</button>
-  </div>
+    <div class="controls">
+      <button class="start" (click)="startRecording()" [disabled]="isRecording">Start</button>
+      <button class="stop" (click)="stopRecording()" [disabled]="!isRecording">Stop</button>
+      <button class="play" (click)="playAudio()" [disabled]="!audioUrl">Play</button>
+      <button class="upload" (click)="uploadAudio()" [disabled]="!audioUrl">Upload</button>
+    </div>
 
-  <div class="status">
-    <p *ngIf="isRecording"><strong>Recording in progress...</strong></p>
-    <p *ngIf="uploadStatus">{{ uploadStatus }}</p>
-  </div>
+    <div class="status">
+      <p *ngIf="isRecording" class="recording-status">Recording in progress...</p>
+      <p *ngIf="uploadStatus" class="upload-status">{{ uploadStatus }}</p>
+    </div>
 
-  <div *ngIf="audioUrl">
-    <audio [src]="audioUrl" controls></audio>
-  </div>
+    <div class="audio-player" *ngIf="audioUrl">
+      <audio [src]="audioUrl" controls></audio>
+    </div>
 
-  <div class="transcription" *ngIf="uploadStatus && uploadStatus.includes('Record ID')">
-    <button (click)="transcribeRecord(parseInt(uploadStatus.split(':')[1]))">🧠 Transcribe</button>
-  </div>
+    <div class="transcription" *ngIf="uploadStatus && uploadStatus.includes('Record ID')">
+      <button class="transcribe-btn" (click)="transcribeRecord(parseInt(uploadStatus.split(':')[1]))">🧠 Transcribe</button>
+    </div>
 
-  <div *ngIf="transcriptionText">
-    <h3>Transcript (Editable)</h3>
-    <textarea rows="5" cols="40" [value]="transcriptionText" (input)="editTranscript($event)"></textarea>
-  </div>
+    <div class="transcript-box" *ngIf="transcriptionText">
+      <h3>Transcript (Editable)</h3>
+      <textarea rows="5" [value]="transcriptionText" (input)="editTranscript($event)"></textarea>
+    </div>
 
-  <div class="footer">
-    <button class="logout-btn" (click)="logout()">Logout</button>
+    <div class="footer">
+      <button class="logout-btn" (click)="logout()">Logout</button>
+    </div>
   </div>
 </div>

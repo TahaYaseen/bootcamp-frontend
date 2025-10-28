@@ -1,0 +1,159 @@
+.record-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #ff5f6d, #ffc371);
+  padding: 2rem;
+}
+
+.record-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 2rem 2.5rem;
+  width: 420px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  animation: fadeIn 0.8s ease;
+
+  h2 {
+    color: #ff5f6d;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 1.5rem;
+  }
+
+  .controls {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+
+    button {
+      padding: 10px 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      color: #fff;
+      transition: all 0.2s ease;
+
+      &.start {
+        background: linear-gradient(90deg, #43e97b, #38f9d7);
+      }
+
+      &.stop {
+        background: linear-gradient(90deg, #ff5f6d, #ffc371);
+      }
+
+      &.play {
+        background: linear-gradient(90deg, #667eea, #764ba2);
+      }
+
+      &.upload {
+        background: linear-gradient(90deg, #f7971e, #ffd200);
+      }
+
+      &:hover {
+        transform: scale(1.05);
+      }
+
+      &:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .status {
+    margin-bottom: 1.5rem;
+
+    .recording-status {
+      color: #ff5f6d;
+      font-weight: 600;
+    }
+
+    .upload-status {
+      color: #555;
+      font-size: 14px;
+    }
+  }
+
+  .audio-player {
+    margin-bottom: 1.5rem;
+    audio {
+      width: 100%;
+      border-radius: 8px;
+    }
+  }
+
+  .transcribe-btn {
+    background: linear-gradient(90deg, #4facfe, #00f2fe);
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 1rem;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  .transcript-box {
+    textarea {
+      width: 100%;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 10px;
+      font-size: 14px;
+      resize: vertical;
+      margin-bottom: 1.5rem;
+
+      &:focus {
+        border-color: #ff5f6d;
+        outline: none;
+      }
+    }
+
+    h3 {
+      margin-bottom: 0.5rem;
+      color: #444;
+    }
+  }
+
+  .logout-btn {
+    background: transparent;
+    border: 1px solid #ff5f6d;
+    color: #ff5f6d;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: #ff5f6d;
+      color: #fff;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
