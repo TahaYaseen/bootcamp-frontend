@@ -8,9 +8,6 @@
   ],
   "buildCommand": "npm run build",
   "outputDirectory": "dist/frontend/browser",
-  "env": {
-    "API_BASE_URL": "https://bootcamp-backend-oq0i.onrender.com/api/v1/"
-  },
   "routes": [
     {
       "handle": "filesystem"
@@ -19,5 +16,8 @@
       "src": "/(.*)",
       "dest": "/index.html"
     }
-  ]
+  ],
+  "env": {
+    "API_BASE_URL": "https://bootcamp-backend-oq0i.onrender.com/api/v1/"
+  }
 }
