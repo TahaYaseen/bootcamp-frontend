@@ -11,7 +11,7 @@ interface AuthResponse {
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl = 'https://bootcamp-backend-oq0i.onrender.com/';
+  private baseUrl = 'https://bootcamp-backend-oq0i.onrender.com/api/v1/';
 
   constructor(private http: HttpClient) {}
 

@@ -205,7 +205,7 @@ export class RecordComponent {
       formData.append('userId', '1');
 
       const token = sessionStorage.getItem('jwt');
-      const baseUrl = 'https://bootcamp-backend-oq0i.onrender.com/';
+      const baseUrl = 'https://bootcamp-backend-oq0i.onrender.com/api/v1/';
       const response = await fetch(`${baseUrl}voice/record`, {
         method: 'POST',
         headers: token ? { Authorization: `Bearer ${token}` } : {},
@@ -236,7 +236,7 @@ export class RecordComponent {
       console.log('Using recordId for transcription:', actualId);
       const start = performance.now();
 
-      const response = await fetch(`https://bootcamp-backend-oq0i.onrender.com/voice/transcribe?recordId=${encodeURIComponent(actualId)}`, {
+      const response = await fetch(`https://bootcamp-backend-oq0i.onrender.com/api/v1/voice/transcribe?recordId=${encodeURIComponent(actualId)}`, {
         method: 'POST',
         headers: token ? { Authorization: `Bearer ${token}` } : {},
       });
