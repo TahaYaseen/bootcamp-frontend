@@ -7,7 +7,7 @@
     }
   ],
   "buildCommand": "npm run build",
-  "outputDirectory": "dist/frontend",
+  "outputDirectory": "dist/frontend/browser",
   "env": {
     "API_BASE_URL": "https://bootcamp-backend-oq0i.onrender.com/api/v1/"
   },
