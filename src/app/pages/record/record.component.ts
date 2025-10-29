@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { environment } from '../../config/environment';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
@@ -206,7 +205,7 @@ export class RecordComponent {
       formData.append('userId', '1');
 
       const token = sessionStorage.getItem('jwt');
-      const baseUrl = environment.apiBaseUrl || 'http://localhost:8081/api/v1/';
+      const baseUrl = 'https://voice-backend.onrender.com/api/v1/';
       const response = await fetch(`${baseUrl}voice/record`, {
         method: 'POST',
         headers: token ? { Authorization: `Bearer ${token}` } : {},
@@ -237,7 +236,7 @@ export class RecordComponent {
       console.log('Using recordId for transcription:', actualId);
       const start = performance.now();
 
-      const response = await fetch(`http://localhost:8081/api/v1/voice/transcribe?recordId=${encodeURIComponent(actualId)}`, {
+      const response = await fetch(`https://voice-backend.onrender.com/api/v1/voice/transcribe?recordId=${encodeURIComponent(actualId)}`, {
         method: 'POST',
         headers: token ? { Authorization: `Bearer ${token}` } : {},
       });

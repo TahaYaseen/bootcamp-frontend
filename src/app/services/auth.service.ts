@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { environment } from '../config/environment';
 
 interface AuthResponse {
   token: string;
@@ -12,7 +11,7 @@ interface AuthResponse {
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl = environment.apiBaseUrl;
+  private baseUrl = 'https://voice-backend.onrender.com/api/v1/';
 
   constructor(private http: HttpClient) {}
 

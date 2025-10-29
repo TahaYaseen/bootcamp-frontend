@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../config/environment';
 
 @Component({
   selector: 'app-health-check',
@@ -18,7 +17,7 @@ export class HealthCheckComponent {
   }
 
   checkHealth() {
-    this.http.get(`${environment.apiBaseUrl}health`, { responseType: 'text' })
+    this.http.get(`https://voice-backend.onrender.com/api/v1/health`, { responseType: 'text' })
       .subscribe({
         next: (res) => this.healthStatus = res,
         error: () => this.healthStatus = 'Server Unavailable'
