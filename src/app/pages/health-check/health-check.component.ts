@@ -17,7 +17,7 @@ export class HealthCheckComponent {
   }
 
   checkHealth() {
-    this.http.get(`https://voice-backend.onrender.com/api/v1/health`, { responseType: 'text' })
+    this.http.get(`https://bootcamp-backend-oq0i.onrender.com/health`, { responseType: 'text' })
       .subscribe({
         next: (res) => this.healthStatus = res,
         error: () => this.healthStatus = 'Server Unavailable'
