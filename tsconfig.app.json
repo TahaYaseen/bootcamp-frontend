@@ -7,10 +7,7 @@
     "types": [
       "node"
     ],
-    "baseUrl": "./",
-    "paths": {
-      "@environments/*": ["./src/environments/*"]
-    }
+    "baseUrl": "./"
   },
   "files": [
     "src/main.ts",
