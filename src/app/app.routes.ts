@@ -27,5 +27,14 @@ export const routes: Routes = [
     path: 'health',
     loadComponent: () => import('./pages/health-check/health-check.component').then(m => m.HealthCheckComponent)
   },
+  {
+    path: 'events',
+    loadComponent: () => import('./pages/events-dashboard/events-dashboard.component').then(m => m.EventsDashboardComponent)
+  },
+  {
+    path: 'events',
+    loadComponent: () => import('./pages/events/events.component').then(m => m.EventsComponent),
+    canActivate: [authGuard]
+  },
   { path: '', redirectTo: '/login', pathMatch: 'full' }
 ];

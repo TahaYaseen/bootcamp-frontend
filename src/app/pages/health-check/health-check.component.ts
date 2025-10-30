@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { API_BASE_V1 } from '../../config/api.config';
 
 @Component({
   selector: 'app-health-check',
@@ -17,7 +18,7 @@ export class HealthCheckComponent {
   }
 
   checkHealth() {
-    this.http.get(`https://bootcamp-backend-oq0i.onrender.com/api/v1/health`, { responseType: 'text' })
+    this.http.get(`${API_BASE_V1}health`, { responseType: 'text' })
       .subscribe({
         next: (res) => this.healthStatus = res,
         error: () => this.healthStatus = 'Server Unavailable'

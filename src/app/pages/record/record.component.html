@@ -1,3 +1,7 @@
+<div class="page-header">
+  <button class="logout-btn" (click)="logout()">Logout</button>
+</div>
+
 <div class="record-page">
   <div class="record-card">
     <h2>🎙️ Voice Recorder</h2>
@@ -29,7 +33,70 @@
     </div>
 
     <div class="footer">
-      <button class="logout-btn" (click)="logout()">Logout</button>
+      <a class="view-events" routerLink="/events">View Events</a>
     </div>
   </div>
+</div>
+
+<!-- Enhanced UI after transcription to show structured data -->
+<div class="transcription-container" *ngIf="transcriptionText">
+  <mat-card class="transcription-card">
+    <mat-card-header>
+      <mat-card-title>🗣️ Transcribed Text</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{ transcriptionText }}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="editMode = !editMode">
+        {{ editMode ? 'Hide Edit' : 'Edit Text' }}
+      </button>
+    </mat-card-actions>
+    <div *ngIf="editMode">
+      <textarea [(ngModel)]="transcriptionText" class="edit-box"></textarea>
+      <button mat-button color="accent" (click)="saveEditedText()">Save</button>
+    </div>
+  </mat-card>
+
+  <mat-divider></mat-divider>
+
+  <div class="confirm-actions">
+    <button mat-raised-button color="primary" (click)="saveEvent()">✅ Save Event</button>
+    <button mat-button color="warn" (click)="discardEvent()">🗑️ Discard</button>
+    <button mat-stroked-button color="accent" (click)="recordAgain()">🔁 Re-record</button>
+  </div>
+
+  <!-- Display refined structured trace event only -->
+  <div *ngIf="structuredEvent" class="extracted-event mt-6 p-4 border rounded bg-gray-50 shadow-sm">
+    <h3 class="text-lg font-semibold mb-3 text-gray-800">📊 Extracted Trace Event</h3>
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-sm">
+      <div *ngIf="structuredEvent.eventType"><strong>Event Type:</strong> {{ structuredEvent.eventType }}</div>
+      <div *ngIf="structuredEvent.cropVariety"><strong>Crop Variety:</strong> {{ structuredEvent.cropVariety }}</div>
+      <div *ngIf="structuredEvent.fieldNumber"><strong>Field Number:</strong> {{ structuredEvent.fieldNumber }}</div>
+      <div *ngIf="structuredEvent.lotNumber"><strong>Lot Number:</strong> {{ structuredEvent.lotNumber }}</div>
+      <div *ngIf="structuredEvent.quantity"><strong>Quantity:</strong> {{ structuredEvent.quantity }}</div>
+      <div *ngIf="structuredEvent.timestamp || structuredEvent.createdAt"><strong>Date:</strong> {{ structuredEvent.timestamp || structuredEvent.createdAt }}</div>
+      <div *ngIf="structuredEvent.ranch"><strong>Ranch:</strong> {{ structuredEvent.ranch }}</div>
+      <div *ngIf="structuredEvent.shipperLot"><strong>Shipper Lot:</strong> {{ structuredEvent.shipperLot }}</div>
+      <div *ngIf="structuredEvent.harvestDate"><strong>Harvest Date:</strong> {{ structuredEvent.harvestDate }}</div>
+      <div *ngIf="structuredEvent.block"><strong>Block:</strong> {{ structuredEvent.block }}</div>
+      <div *ngIf="structuredEvent.section"><strong>Section:</strong> {{ structuredEvent.section }}</div>
+      <div *ngIf="structuredEvent.growerName"><strong>Grower:</strong> {{ structuredEvent.growerName }}</div>
+    </div>
+
+    <div *ngIf="structuredEvent.extraFields && (structuredEvent.extraFields | keyvalue).length" class="mt-3">
+      <h4 class="font-medium text-gray-700 mb-1">Additional Details</h4>
+      <ul class="list-disc pl-5 text-sm">
+        <li *ngFor="let pair of structuredEvent.extraFields | keyvalue">
+          <strong>{{ pair.key }}:</strong> {{ pair.value }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Placeholder when no transcription is available -->
+<div *ngIf="!transcriptionText" class="record-placeholder">
+  <p>🎙️ Speak your harvest event (e.g., "Lot 234 harvested in Field 5")</p>
+  <p>Your transcription and structured event details will appear here.</p>
 </div>

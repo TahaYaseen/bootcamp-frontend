@@ -1,12 +1,18 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
 import { AuthService } from '../../services/auth.service';
+import { API_BASE_V1, API_BASE } from '../../config/api.config';
 
 @Component({
   selector: 'app-record',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule, MatCardModule, MatButtonModule, MatDividerModule, RouterModule],
   templateUrl: './record.component.html',
   styleUrls: ['./record.component.scss']
 })
@@ -16,6 +22,10 @@ export class RecordComponent {
   audioUrl: string | null = null;
   isRecording = false;
   uploadStatus: string | null = null;
+  transcriptionText: string | null = null;
+  transcriptId: number | null = null;
+  editMode = false;
+  structuredEvent: any = null;
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -205,8 +215,7 @@ export class RecordComponent {
       formData.append('userId', '1');
 
       const token = sessionStorage.getItem('jwt');
-      const baseUrl = 'https://bootcamp-backend-oq0i.onrender.com/api/v1/';
-      const response = await fetch(`${baseUrl}voice/record`, {
+      const response = await fetch(`${API_BASE_V1}voice/record`, {
         method: 'POST',
         headers: token ? { Authorization: `Bearer ${token}` } : {},
         body: formData,
@@ -236,7 +245,7 @@ export class RecordComponent {
       console.log('Using recordId for transcription:', actualId);
       const start = performance.now();
 
-      const response = await fetch(`https://bootcamp-backend-oq0i.onrender.com/api/v1/voice/transcribe?recordId=${encodeURIComponent(actualId)}`, {
+      const response = await fetch(`${API_BASE_V1}voice/transcribe?recordId=${encodeURIComponent(actualId)}`, {
         method: 'POST',
         headers: token ? { Authorization: `Bearer ${token}` } : {},
       });
@@ -257,8 +266,6 @@ export class RecordComponent {
     }
   }
 
-  transcriptionText: string | null = null;
-  transcriptId: number | null = null;
 
   editTranscript(event: any) {
     this.transcriptionText = event.target.value;
@@ -268,7 +275,97 @@ export class RecordComponent {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
-  parseInt(value: string): number {
+
+  saveEditedText() {
+    console.log('Edited transcription saved:', this.transcriptionText);
+    this.editMode = false;
+  }
+
+  async saveEvent() {
+    if (!this.transcriptionText || this.transcriptionText.trim().length === 0) {
+      alert('⚠️ No transcription text found. Please record or transcribe first.');
+      return;
+    }
+
+    try {
+      const baseUrl = API_BASE;
+      console.log('Sending transcription text for extraction...', this.transcriptionText);
+
+      const response = await fetch(`${baseUrl}/extract-event`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: this.transcriptionText })
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+
+        // Prefer unified fields from backend when available
+        if (data && (data.eventType || data.cropVariety || data.lotNumber || data.fieldNumber)) {
+          this.structuredEvent = {
+            eventType: data.eventType || 'Unknown',
+            cropVariety: data.cropVariety || 'Unknown',
+            fieldNumber: data.fieldNumber || 'N/A',
+            lotNumber: data.lotNumber || 'N/A',
+            quantity: data.quantity || 'N/A',
+            unit: data.unit,
+            product: data.product,
+            timestamp: data.timestamp,
+            rawText: data.rawText
+          };
+        } else {
+          // Fallback to older nested structuredEvent parsing
+          try {
+            const parsed = typeof data.structuredEvent === 'string' ? JSON.parse(data.structuredEvent) : data.structuredEvent;
+            this.structuredEvent = {
+              eventType: parsed.event || parsed.type || parsed.eventType || 'Unknown',
+              cropVariety: parsed.crop || parsed.cropVariety || 'Unknown',
+              fieldNumber: parsed.field?.identifier || parsed.field || parsed.fieldNumber || 'N/A',
+              lotNumber: parsed.lot?.identifier || parsed.lot || parsed.lotNumber || 'N/A',
+              quantity: parsed.quantity || parsed.amount || 'N/A',
+              ranch: parsed.ranch,
+              shipperLot: parsed.shipperLot,
+              harvestDate: parsed.harvestDate || data.timestamp,
+              rawText: data.rawText
+            };
+          } catch (e) {
+            console.error('Failed to parse structured event:', e);
+            this.structuredEvent = { rawText: data?.rawText, error: 'Parsing failed' };
+          }
+        }
+
+        console.log('✅ Refined structured event:', this.structuredEvent);
+        alert('✅ Event successfully extracted and saved!');
+      } else {
+        const errMsg = await response.text();
+        console.error('❌ Extraction API failed:', errMsg);
+        alert('❌ Failed to extract event. Check backend logs.');
+      }
+    } catch (error) {
+      console.error('❌ Extraction error:', error);
+      alert('❌ Failed to connect to backend for extraction.');
+    }
+  }
+
+  discardEvent() {
+    this.transcriptionText = null;
+    this.structuredEvent = null;
+    alert('🗑️ Event discarded');
+  }
+
+  recordAgain() {
+    this.transcriptionText = null;
+    this.structuredEvent = null;
+    this.uploadStatus = '';
+    this.transcriptId = null;
+    alert('🎙️ Re-record your harvest event.');
+  }
+
+  parseIntValue(value: string): number {
     return parseInt(value, 10);
+  }
+
+  parseInt(value: string): number {
+    return Number.parseInt(value, 10);
   }
 }

@@ -1,0 +1,49 @@
+<div class="p-6">
+  <h2 class="text-2xl font-semibold mb-4">Captured Events</h2>
+
+  <div class="mb-6">
+    <h3 class="text-lg font-medium mb-2">Add Event</h3>
+    <form (ngSubmit)="saveEvent()" #eventForm="ngForm" class="flex gap-2 mb-4">
+      <input [(ngModel)]="newEvent.type" name="type" placeholder="Event Type" required class="border p-2 flex-1" />
+      <input [(ngModel)]="newEvent.payload" name="payload" placeholder="Payload (JSON or text)" required class="border p-2 flex-1" />
+      <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+        Save Event
+      </button>
+    </form>
+
+    <h3 class="text-lg font-medium mb-2">Extract Event from Text</h3>
+    <div class="flex flex-col gap-2 mb-4">
+      <textarea [(ngModel)]="extractText" name="extractText" placeholder="Enter sentence to extract event details (e.g., 'Harvested 3 tons of mango from Field 7')" class="border p-2 flex-1" rows="3"></textarea>
+      <button (click)="extractEventFromText()" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">
+        Extract Event
+      </button>
+    </div>
+
+    <div *ngIf="!loading && events.length" class="mb-2 text-gray-600">
+      Showing {{ events.length }} events
+    </div>
+  </div>
+
+  <table *ngIf="!loading && !error && events.length" class="min-w-full border border-gray-300">
+    <thead class="bg-gray-100">
+      <tr>
+        <th class="p-2 border">ID</th>
+        <th class="p-2 border">Type</th>
+        <th class="p-2 border">Payload</th>
+        <th class="p-2 border">Timestamp</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let event of events">
+        <td class="p-2 border">{{ event.id }}</td>
+        <td class="p-2 border">{{ event.type }}</td>
+        <td class="p-2 border">{{ event.payload }}</td>
+        <td class="p-2 border">{{ event.timestamp | date:'short' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!loading && !error && !events.length" class="text-gray-500">
+    No events captured yet.
+  </div>
+</div>

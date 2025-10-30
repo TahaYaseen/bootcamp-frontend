@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { API_BASE_V1 } from '../config/api.config';
 
 interface AuthResponse {
   token: string;
@@ -11,7 +12,7 @@ interface AuthResponse {
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl = 'https://bootcamp-backend-oq0i.onrender.com/api/v1/';
+  private baseUrl = API_BASE_V1;
 
   constructor(private http: HttpClient) {}
 
@@ -23,7 +24,7 @@ export class AuthService {
 
   register(email: string, password: string): Observable<AuthResponse> {
     const payload = { username: email, password };
-    return this.http.post<AuthResponse>(`${this.baseUrl}/api/v1/auth/register`, payload).pipe(
+    return this.http.post<AuthResponse>(`${this.baseUrl}auth/register`, payload).pipe(
       catchError((error) => { throw error; })
     );
   }
